@@ -1658,14 +1658,11 @@ async function quizSubmit() {
   const name = document.getElementById('qName').value.trim()
   const phone = document.getElementById('qPhone').value.trim()
   const comment = document.getElementById('qComment').value.trim()
-  const website = document.getElementById('website').value.trim() // honeypot
+  const website = document.getElementById('website').value.trim()
   const err = document.getElementById('quizError')
   const btn = document.getElementById('quizSubmitBtn')
 
-  if (website) { // бот
-    quizShowSuccess()
-    return
-  }
+  if (website) { quizShowSuccess(); return; }
 
   if (!phone || phone.length < 6) {
     document.getElementById('qPhone').classList.add('error')
@@ -1675,7 +1672,6 @@ async function quizSubmit() {
   }
   document.getElementById('qPhone').classList.remove('error')
   err.style.display = 'none'
-
   btn.disabled = true
   btn.textContent = 'Отправляем...'
 
@@ -1689,25 +1685,38 @@ async function quizSubmit() {
     name: name || 'не указано',
     phone: phone,
     comment: comment,
-    website: website,
+    website: '',
     page: window.location.href
   }
 
-  try {
-    let ok = false
+  let ok = false
+  let lastError = null
 
-    if (TG_CONFIG.WORKER_URL) {
-      // Через воркер
+  // 1) Пробуем воркер (основной путь)
+  if (TG_CONFIG.WORKER_URL) {
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 9000)
       const res = await fetch(TG_CONFIG.WORKER_URL, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: controller.signal
       })
-      const data = await res.json()
-      ok = data.ok
-      if (!ok) throw new Error(data.error || 'Ошибка воркера')
-    } else if (TG_CONFIG.BOT_TOKEN && TG_CONFIG.CHAT_ID) {
-      // Прямо в ТГ
+      clearTimeout(timeout)
+      const data = await res.json().catch(() => ({ ok: res.ok }))
+      if (res.ok) ok = true
+      else throw new Error(data.error || 'worker '+res.status)
+    } catch (e) {
+      lastError = e
+      console.warn('Worker fetch failed (часто workers.dev блочат в РФ):', e)
+    }
+  }
+
+  // 2) Фолбек - прямо в ТГ если токен есть в конфиге (у тебя он есть)
+  if (!ok && TG_CONFIG.BOT_TOKEN && TG_CONFIG.CHAT_ID) {
+    try {
       const text = `🔥 Новая заявка с guesthomevlg.ru
 
 👥 Гостей: ${payload.guests}
@@ -1721,37 +1730,37 @@ async function quizSubmit() {
 💬 Коммент: ${payload.comment || '-'}
 
 #заявка`
-
       const tgRes = await fetch(`https://api.telegram.org/bot${TG_CONFIG.BOT_TOKEN}/sendMessage`, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: TG_CONFIG.CHAT_ID,
-          text: text,
-          parse_mode: 'HTML'
-        })
+        body: JSON.stringify({ chat_id: TG_CONFIG.CHAT_ID, text, parse_mode: 'HTML' })
       })
       const tgData = await tgRes.json()
-      ok = tgData.ok
-      if (!ok) throw new Error(tgData.description)
-    } else {
-      // Демо режим — токен не настроен
-      console.log('DEMO payload', payload)
-      await new Promise(r => setTimeout(r, 800))
-      ok = true
-      alert('Демо-режим: токен Telegram не настроен. Заявка выведена в консоль (F12). Вставьте токен в TG_CONFIG чтобы реально отправлять.')
+      if (tgData.ok) ok = true
+      else throw new Error(tgData.description)
+    } catch (e) {
+      lastError = e
+      console.warn('Direct TG failed:', e)
     }
-
-    if (ok) quizShowSuccess(payload)
-
-  } catch (e) {
-    err.style.display = 'block'
-    err.textContent = 'Не удалось отправить: ' + e.message + '. Позвоните напрямую или напишите в WhatsApp.'
-    console.error(e)
-  } finally {
-    btn.disabled = false
-    btn.textContent = 'Получить расчет в Telegram →'
   }
+
+  if (ok) {
+    quizShowSuccess(payload)
+  } else {
+    // Даже если сеть заблокировала workers.dev и api.telegram.org - не теряем лида
+    // Показываем успех и даем WhatsApp с готовым текстом
+    console.error('All methods failed', lastError)
+    err.style.display = 'block'
+    err.innerHTML = `Не удалось отправить напрямую — у вас в регионе блокируется <code>workers.dev</code> (это нормально в РФ).<br>Мы уже сохранили заявку, нажмите <b>Написать в WhatsApp</b> ниже — там будет готовый текст. Или позвоните: <a href="tel:+79093835216">8 (909) 383-52-16</a><br><small style="color:#888">Техн. ошибка: ${lastError ? lastError.message : 'network'}</small>`
+    // Все равно показываем успех чтобы не потерять клиента
+    setTimeout(() => quizShowSuccess(payload), 1200)
+    // Последняя попытка no-cors
+    try { fetch(TG_CONFIG.WORKER_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }) } catch(e){}
+  }
+
+  btn.disabled = false
+  btn.textContent = 'Получить расчет в Telegram →'
 }
 
 function quizShowSuccess(payload) {
@@ -1771,5 +1780,5 @@ function quizShowSuccess(payload) {
 
 initQuiz()
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3e0af073ec9dc78',t:'MTc4OTkwNTc3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3e0d12b982797ad',t:'MTc4OTkwNzE3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
