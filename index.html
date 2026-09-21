@@ -6,14 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="format-detection" content="telephone=yes">
   <meta name="description" content="Гостевые комнаты на Эльтонской, Волгоград. Пройдите квиз и получите расчет напрямую. Wi-Fi, кондиционер, парковка, кухня, отзывы и карта.">
-  <meta name="theme-color" content="#1d1712">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Гостевые комнаты на Эльтонской — Волгоград</title>
-  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon.png">
   <link rel="preload" as="image" href="hero-room.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"GuestHouse","name":"Гостевые комнаты на Эльтонской","url":"https://guesthomevlg.ru/","telephone":"+79093835216","image":"https://guesthomevlg.ru/hero-room.jpg","priceRange":"от 2700 ₽","address":{"@type":"PostalAddress","streetAddress":"Эльтонская улица, 46","addressLocality":"Волгоград","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":48.728395,"longitude":44.507219},"aggregateRating":{"@type":"AggregateRating","ratingValue":"9.3","bestRating":"10","reviewCount":"29"},"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Wi-Fi","value":true},{"@type":"LocationFeatureSpecification","name":"Кондиционер","value":true},{"@type":"LocationFeatureSpecification","name":"Парковка","value":true},{"@type":"LocationFeatureSpecification","name":"Кухня","value":true}]}
+  </script>
   <style>
 :root {
   --paper: #f6efe4;
@@ -580,7 +582,7 @@ button { font: inherit; }
   gap: 24px;
   align-items: center;
   background:
-    linear-gradient(135deg, rgba(29,23,18,0.88), rgba(42,33,24,0.78)),
+    linear-gradient(135deg, rgba(29,23,18,0.93), rgba(42,33,24,0.86)),
     url("hero-yard.jpg") center/cover no-repeat;
   color: #fff;
 }
@@ -911,10 +913,210 @@ button { font: inherit; }
   .sticky-booking { display: flex; }
 }
   </style>
+  <!-- ── SEO / share-метаданные (добавлены) ── -->
+  <link rel="canonical" href="https://guesthomevlg.ru/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Гостевые комнаты на Эльтонской">
+  <meta property="og:url" content="https://guesthomevlg.ru/">
   <meta property="og:title" content="Гостевые комнаты на Эльтонской — Волгоград">
   <meta property="og:description" content="Пройдите квиз за 30 секунд и получите точный расчет. Уютные 2-, 3- и 4-местные комнаты, Wi-Fi, кондиционер, парковка.">
-  <meta property="og:image" content="hero-room.jpg">
+  <meta property="og:image" content="https://guesthomevlg.ru/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Гостевые комнаты на Эльтонской — Волгоград">
+  <meta name="twitter:description" content="Квиз за 30 секунд — точный расчет напрямую, без комиссий.">
+  <meta name="twitter:image" content="https://guesthomevlg.ru/og-image.jpg">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6efe4">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d1712">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="site.webmanifest">
+  <style>
+  :root { --header-h: 82px; --header-h-mobile: 62px; }
+  
+  /* ── Шапка: текст больше не залазит на кнопку и не липнет к границам ── */
+  .header-inner {
+    min-height: var(--header-h);
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .brand { min-width: 0; flex: 1 1 auto; }
+  .brand strong {
+    font-size: clamp(0.95rem, 3.1vw, 1.12rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand small {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-mark { width: clamp(36px, 9vw, 46px); height: clamp(36px, 9vw, 46px); }
+  .header-actions { flex: 0 0 auto; }
+  .header-actions .btn { white-space: nowrap; }
+  
+  /* ── Якоря: заголовки секций не прячутся под sticky-шапкой ── */
+  html { scroll-padding-top: calc(var(--header-h) + 10px); }
+  [id] { scroll-margin-top: calc(var(--header-h) + 10px); }
+  
+  /* Липкая карточка квиза встаёт ровно под шапку (было top:92px при шапке 82px) */
+  .quiz-card { top: calc(var(--header-h) + 10px); }
+  
+  @media (max-width: 760px) {
+    /* Шапка остаётся sticky: паддинг героя больше не нужен как «запас под шапку» */
+    .site-header { position: sticky; }
+    .header-inner { min-height: var(--header-h-mobile); gap: 10px; }
+    .brand { gap: 9px; }
+    .brand strong { font-size: 1rem; line-height: 1.15; }
+    .brand small { font-size: 0.72rem; line-height: 1.25; }
+    .header-actions { width: auto; }
+    .header-actions .btn { width: auto; padding: 9px 14px; font-size: 0.9rem; }
+    html { scroll-padding-top: calc(var(--header-h-mobile) + 8px); }
+    [id] { scroll-margin-top: calc(var(--header-h-mobile) + 8px); }
+    .quiz-card { top: calc(var(--header-h-mobile) + 8px); }
+    .hero { min-height: 92svh; }
+    /* Было 84px «мёртвого» отступа сверху — блок текста висел в пустоте под шапкой */
+    .hero-content { padding: 24px 0 30px; }
+    .hero h1 { font-size: clamp(1.85rem, 8.4vw, 2.2rem); }
+    .hero-badge { font-size: 0.74rem; }
+    .site-footer { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+    .sticky-booking { bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  }
+  
+  /* Мелкие экраны: адрес в шапке можно не показывать, чтобы всё влезало в одну строку */
+  @media (max-width: 400px) {
+    .brand small { display: none; }
+    .header-actions .btn { padding: 9px 12px; }
+  }
+  
+  /* Поддержка системного тёмного режима — статус-бар не выбивается по цвету */
+  @media (prefers-color-scheme: dark) {
+    .site-header { background: rgba(29, 23, 18, 0.92); }
+    .brand strong { color: #f6efe4; }
+    .brand small { color: rgba(246, 239, 228, 0.62); }
+    .header-nav { color: rgba(246, 239, 228, 0.62); }
+    .header-nav a:hover { color: #fff; }
+    .site-header { border-bottom-color: rgba(255, 255, 255, 0.1); }
+  }
+  
+  /* Небольшие LCD-экраны / масштабирование в браузере: текст не прыгает по ширине */
+  @media (max-width: 760px) and (orientation: landscape) {
+    .hero { min-height: auto; }
+    .hero-content { padding: 20px 0 26px; }
+  }
+  
+  /* Первый экран: фикс. нижняя панель не должна наезжать на карточки метрик */
+  @media (max-width: 760px) {
+    .hero-content { padding-bottom: 112px; }
+    .hero-meta { gap: 10px; margin: 22px 0 20px; }
+    .metric-card { padding: 14px 16px; }
+  }
+  
+  /* Мобильная нижняя панель: прячем, пока пользователь не прошёл экран героя.
+     Иначе на 320–360px она наезжала на третью карточку метрик (это и в оригинале было). */
+  @media (max-width: 760px) {
+    .sticky-booking {
+      transition: transform 0.28s ease, opacity 0.28s ease;
+      will-change: transform;
+    }
+    .sticky-booking.is-hidden {
+      transform: translate(-50%, 150%);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  
+  /* ─────────── раунд 2: доступность, формы, мобильная навигация ─────────── */
+  
+  /* Моб. навигация: ссылки в шапке не влезают (space-between даёт наложение),
+     поэтому на узких экранах — отдельная строка-скролл под шапкой */
+  .mobile-nav { display: none; }
+  @media (max-width: 760px) {
+    .header-nav { display: none; }
+    .site-header { padding-bottom: 0; }
+    .mobile-nav {
+      display: block;
+      position: sticky;
+      top: 63px;
+      z-index: 45;
+      background: rgba(246, 239, 228, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-nav .container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 7px 0;
+    }
+    .mobile-nav .container::-webkit-scrollbar { display: none; }
+    .mobile-nav a {
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(42, 33, 24, 0.12);
+      background: var(--cream);
+      font-weight: 700;
+      font-size: 0.86rem;
+      white-space: nowrap;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .mobile-nav a:active { background: #efe2cd; }
+    .quiz-card { top: 108px; }
+    html { scroll-padding-top: 108px; }
+    [id] { scroll-margin-top: 108px; }
+    .hero-content { padding-top: 12px; }
+  }
+  
+  /* Адрес в шапке на мобильном не показываем вовсе (решение владельца) */
+  @media (max-width: 760px) { .brand small { display: none; } }
+  
+  /* Тап-таргеты */
+  @media (max-width: 760px) {
+    .slider-btn { width: 44px; height: 44px; }
+    .quiz-option { min-height: 50px; }
+    .header-nav a { min-height: 44px; display: inline-flex; align-items: center; }
+  }
+  
+  /* Текстовые контрасты на тёмном фоне героя/CTA */
+  .hero-badge { color: #fff; background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.32); }
+  .metric-label { color: rgba(255,250,243,0.88); }
+  .hero-points li { color: #fff; }
+  .cta-box .eyebrow { color: #ffe9bd; }
+  
+  /* Сообщения об ошибках — читаемый красный вместо #a33 на светлом */
+  #quizError { color: #9c2b22 !important; }
+  .quiz-input.error { border-color: #c0453b !important; background: #fdf1ef; }
+  
+  /* Инерция скролла по якорям не должна конфликтовать с настройками пользователя */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  
+  /* Печать: не тащим тяжёлые фоны */
+  @media print {
+    .site-header, .sticky-booking, .hero-media, .hero-overlay { display: none !important; }
+    body { background: #fff; color: #000; }
+  }
+  
+  /* Контраст и кликабельность — раунд 3 */
+  .eyebrow { color: #4a3410; }   /* 2.57:1 -> ~5:1 на светлом фоне */                     /* было #7a5a1c — 2.6:1 на светлом фоне */
+  .btn { min-height: 44px; }                       /* тап-таргеты */
+  .slider-dots button { min-width: 28px; min-height: 24px; background-clip: content-box; padding: 5px 4px; }
+  .quiz-nav .btn { flex: 1 1 auto; }
+  
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#quiz">Перейти к квизу</a>
@@ -922,7 +1124,7 @@ button { font: inherit; }
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="На главную">
-        <span class="brand-mark"><img src="icon.png" alt=""></span>
+        <span class="brand-mark"><img src="icon.png" alt="" width="512" height="512" decoding="async"></span>
         <span>
           <strong>На Эльтонской</strong>
           <small>Волгоград • Эльтонская, 46</small>
@@ -942,10 +1144,21 @@ button { font: inherit; }
     </div>
   </header>
 
+  <nav class="mobile-nav" aria-label="Разделы (мобильные)">
+    <div class="container">
+      <a href="#rooms">Номера</a>
+      <a href="#quiz">Квиз −10%</a>
+      <a href="#gallery">Фото</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#map-section">Карта</a>
+      <a href="tel:+79093835216">Позвонить</a>
+    </div>
+  </nav>
+
   <main id="top">
     <section class="hero">
       <div class="hero-media">
-        <img src="hero-room.jpg" alt="Уютная комната для проживания на Эльтонской" loading="eager" decoding="async">
+        <img src="hero-room.jpg" alt="Уютная комната для проживания на Эльтонской" width="1280" height="960" fetchpriority="high" decoding="async">
       </div>
       <div class="hero-overlay"></div>
       <div class="container hero-content">
@@ -1009,7 +1222,7 @@ button { font: inherit; }
           <article class="room-card">
             <div class="room-gallery" data-slider>
               <div class="slides">
-                <figure class="slide is-active"><img src="double-1.jpg" alt="Двухместный номер «Сакура» с двуспальной кроватью" loading="lazy"></figure>
+                <figure class="slide is-active"><img src="double-1.jpg" alt="Двухместный номер «Сакура» с двуспальной кроватью" loading="lazy" width="630" height="840" decoding="async"></figure>
               </div>
               <div class="slider-dots" aria-hidden="true"></div>
             </div>
@@ -1040,8 +1253,8 @@ button { font: inherit; }
           <article class="room-card">
             <div class="room-gallery" data-slider>
               <div class="slides">
-                <figure class="slide is-active"><img src="triple-sofa-1.jpg" alt="Трёхместный номер «Море» с диваном и кроватями" loading="lazy"></figure>
-                <figure class="slide"><img src="triple-sofa-2.jpg" alt="Трёхместный номер «Море» — диван и зона отдыха" loading="lazy"></figure>
+                <figure class="slide is-active"><img src="triple-sofa-1.jpg" alt="Трёхместный номер «Море» с диваном и кроватями" loading="lazy" width="630" height="840" decoding="async"></figure>
+                <figure class="slide"><img src="triple-sofa-2.jpg" alt="Трёхместный номер «Море» — диван и зона отдыха" loading="lazy" width="630" height="840" decoding="async"></figure>
                 <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">‹</button>
                 <button class="slider-btn next" type="button" aria-label="Следующее фото">›</button>
               </div>
@@ -1074,8 +1287,8 @@ button { font: inherit; }
           <article class="room-card">
             <div class="room-gallery" data-slider>
               <div class="slides">
-                <figure class="slide is-active"><img src="triple-3beds-1.jpg" alt="Трёхместный номер «Лес» с тремя односпальными кроватями" loading="lazy"></figure>
-                <figure class="slide"><img src="triple-3beds-2.jpg" alt="Трёхместный номер «Лес» со шкафом и телевизором" loading="lazy"></figure>
+                <figure class="slide is-active"><img src="triple-3beds-1.jpg" alt="Трёхместный номер «Лес» с тремя односпальными кроватями" loading="lazy" width="630" height="840" decoding="async"></figure>
+                <figure class="slide"><img src="triple-3beds-2.jpg" alt="Трёхместный номер «Лес» со шкафом и телевизором" loading="lazy" width="630" height="840" decoding="async"></figure>
                 <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">‹</button>
                 <button class="slider-btn next" type="button" aria-label="Следующее фото">›</button>
               </div>
@@ -1108,8 +1321,8 @@ button { font: inherit; }
           <article class="room-card">
             <div class="room-gallery" data-slider>
               <div class="slides">
-                <figure class="slide is-active"><img src="quad-1.jpg" alt="Четырёхместный номер «Вип»" loading="lazy"></figure>
-                <figure class="slide"><img src="quad-2.jpg" alt="Четырёхместный номер «Вип» с рабочим столом и шкафом" loading="lazy"></figure>
+                <figure class="slide is-active"><img src="quad-1.jpg" alt="Четырёхместный номер «Вип»" loading="lazy" width="840" height="630" decoding="async"></figure>
+                <figure class="slide"><img src="quad-2.jpg" alt="Четырёхместный номер «Вип» с рабочим столом и шкафом" loading="lazy" width="840" height="630" decoding="async"></figure>
                 <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">‹</button>
                 <button class="slider-btn next" type="button" aria-label="Следующее фото">›</button>
               </div>
@@ -1184,7 +1397,7 @@ button { font: inherit; }
                   <label class="quiz-option" data-value="5+ гостей, нужно несколько комнат"><input type="radio" name="guests" value="5+ гостей, нужно несколько комнат"><span class="check"></span> 5+ гостей — нужно 2+ комнаты</label>
                 </div>
                 <div class="quiz-nav">
-                  <button class="btn btn-dark" style="flex:1" onclick="quizNext()">Далее →</button>
+                  <button type="button" class="btn btn-dark" style="flex:1" onclick="quizNext()">Далее →</button>
                 </div>
               </div>
 
@@ -1195,11 +1408,11 @@ button { font: inherit; }
                   <div class="quiz-row">
                     <div>
                       <label style="font-weight:700; font-size:0.9rem; display:block; margin-bottom:6px;">Заезд</label>
-                      <input class="quiz-input" type="date" id="dateFrom">
+                      <input class="quiz-input" type="date" id="dateFrom" aria-label="Дата заезда" required>
                     </div>
                     <div>
                       <label style="font-weight:700; font-size:0.9rem; display:block; margin-bottom:6px;">Выезд</label>
-                      <input class="quiz-input" type="date" id="dateTo">
+                      <input class="quiz-input" type="date" id="dateTo" aria-label="Дата выезда" required>
                     </div>
                   </div>
                   <div class="quiz-hint">📅 Если даты пока примерные — выберите ориентировочно, в комментарии уточните. Считаем ночи автоматически.</div>
@@ -1208,8 +1421,8 @@ button { font: inherit; }
                   </div>
                 </div>
                 <div class="quiz-nav">
-                  <button class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
-                  <button class="btn btn-dark" onclick="quizNext()">Далее →</button>
+                  <button type="button" class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
+                  <button type="button" class="btn btn-dark" onclick="quizNext()">Далее →</button>
                 </div>
               </div>
 
@@ -1224,8 +1437,8 @@ button { font: inherit; }
                   <label class="quiz-option" data-value="Не знаю, помогите выбрать"><input type="radio" name="room" value="Не знаю, помогите выбрать"><span class="check"></span> Не знаю, помогите выбрать самый выгодный</label>
                 </div>
                 <div class="quiz-nav">
-                  <button class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
-                  <button class="btn btn-dark" onclick="quizNext()">Далее →</button>
+                  <button type="button" class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
+                  <button type="button" class="btn btn-dark" onclick="quizNext()">Далее →</button>
                 </div>
               </div>
 
@@ -1245,8 +1458,8 @@ button { font: inherit; }
                   <span>Предварительно</span><strong id="quizPriceText">—</strong>
                 </div>
                 <div class="quiz-nav">
-                  <button class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
-                  <button class="btn btn-dark" onclick="quizNext()">Далее →</button>
+                  <button type="button" class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
+                  <button type="button" class="btn btn-dark" onclick="quizNext()">Далее →</button>
                 </div>
               </div>
 
@@ -1255,9 +1468,9 @@ button { font: inherit; }
                 <h3 class="quiz-q">Куда отправить расчет?</h3>
                 <p style="color:var(--muted); margin: -8px 0 16px;">Отправим подборку и зафиксируем цену на 24 часа. Придет в Telegram хозяйке и вам на WhatsApp.</p>
                 <div class="quiz-inputs">
-                  <input class="quiz-input hidden-input" type="text" id="website" autocomplete="off" tabindex="-1" placeholder="не заполняй">
-                  <input class="quiz-input" type="text" id="qName" placeholder="Ваше имя">
-                  <input class="quiz-input" type="tel" id="qPhone" placeholder="Телефон / WhatsApp *">
+                  <input class="quiz-input hidden-input" type="text" id="website" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" aria-label="Не заполнять это поле">
+                  <input class="quiz-input" type="text" id="qName" placeholder="Ваше имя" aria-label="Ваше имя" autocomplete="name">
+                  <input class="quiz-input" type="tel" id="qPhone" placeholder="Телефон / WhatsApp *" aria-label="Телефон или WhatsApp" autocomplete="tel" inputmode="tel" required>
                   <input class="quiz-input" type="text" id="qComment" placeholder="Комментарий (необязательно)">
                   <div id="quizSummary" class="quiz-hint"></div>
                   <div id="quizFinalPrice" class="quiz-price-box">
@@ -1266,10 +1479,10 @@ button { font: inherit; }
                   <div style="font-size:0.82rem; color:var(--muted);">Нажимая кнопку, вы соглашаетесь с обработкой данных. Никакого спама — только по брони.</div>
                 </div>
                 <div class="quiz-nav">
-                  <button class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
-                  <button class="btn btn-accent" id="quizSubmitBtn" onclick="quizSubmit()">Получить расчет в Telegram →</button>
+                  <button type="button" class="btn btn-ghost" onclick="quizPrev()">← Назад</button>
+                  <button type="button" class="btn btn-accent" id="quizSubmitBtn" onclick="quizSubmit>()">Получить расчет в Telegram →</button>
                 </div>
-                <div id="quizError" style="display:none; margin-top:12px; color:#a33; font-weight:700; font-size:0.9rem;"></div>
+                <div id="quizError" role="alert" aria-live="assertive" style="display:none; margin-top:12px; color:#9c2b22; font-weight:700; font-size:0.9rem;"></div>
               </div>
 
               <!-- SUCCESS -->
@@ -1304,27 +1517,27 @@ button { font: inherit; }
         </div>
         <div class="gallery-grid">
           <figure class="gallery-card gallery-wide">
-            <img src="kitchen-1.jpg" alt="Общая кухня" loading="lazy">
+            <img src="kitchen-1.jpg" alt="Общая кухня" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Кухня с плитой, холодильником, микроволновкой и посудой</figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="kitchen-2.jpg" alt="Кухонная зона" loading="lazy">
+            <img src="kitchen-2.jpg" alt="Кухонная зона" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Обеденная зона</figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="corridor.jpg" alt="Коридор гостевого дома" loading="lazy">
+            <img src="corridor.jpg" alt="Коридор гостевого дома" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Аккуратный коридор</figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="bathroom.jpg" alt="Санузел" loading="lazy">
+            <img src="bathroom.jpg" alt="Санузел" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Санузел</figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="courtyard.jpg" alt="Двор" loading="lazy">
+            <img src="courtyard.jpg" alt="Двор" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Двор и парковка</figcaption>
           </figure>
           <figure class="gallery-card gallery-wide">
-            <img src="garden.jpg" alt="Зелёная зона во дворе" loading="lazy">
+            <img src="garden.jpg" alt="Зелёная зона во дворе" loading="lazy" width="630" height="840" decoding="async">
             <figcaption>Спокойный зелёный двор</figcaption>
           </figure>
         </div>
@@ -1507,6 +1720,16 @@ const roomPrices = {
 }
 
 function initQuiz() {
+  var df = document.getElementById('dateFrom'), dt = document.getElementById('dateTo')
+  if (df && dt) {
+    var t = new Date(), tmr = new Date(Date.now() + 864e5)
+    var iso = function (d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') }
+    df.min = iso(t); dt.min = iso(tmr); df.value = iso(t); dt.value = iso(tmr)
+    df.addEventListener('change', function () {
+      if (df.value) { dt.min = df.value; if (dt.value && dt.value <= df.value) dt.value = '' }
+      else { dt.min = '' }
+    })
+  }
   document.querySelectorAll('.quiz-option').forEach(el => {
     el.addEventListener('click', function() {
       const group = this.closest('.quiz-options')
@@ -1542,10 +1765,13 @@ function initQuiz() {
   const to = document.getElementById('dateTo')
   if (from && to) {
     const today = new Date().toISOString().split('T')[0]
+    const tomorrow = new Date(Date.now() + 864e5).toISOString().split('T')[0]
     from.min = today
-    to.min = today
+    to.min = from.value || tomorrow
+    if (!to.value || to.value <= from.value) to.value = tomorrow
     from.addEventListener('change', calcNights)
     to.addEventListener('change', calcNights)
+    try { calcNights() } catch (e) {}
   }
 }
 
@@ -1596,20 +1822,32 @@ function updatePricePreview() {
   }
 }
 
+function quizErrorShow(msg, anchorEl) {
+  var box = document.getElementById('quizError')
+  if (box) { box.textContent = msg; box.style.display = 'block' }
+  if (anchorEl && anchorEl.focus) { try { anchorEl.focus({ preventScroll: true }) } catch (e) { anchorEl.focus() } }
+  if (anchorEl && anchorEl.closest) {
+    var card = document.getElementById('quizCard')
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+  clearTimeout(window.__quizErrT)
+  window.__quizErrT = setTimeout(function () { if (box) { box.style.display = 'none'; box.textContent = '' } }, 5000)
+}
+
 function quizNext(isAuto=false) {
   // валидация
   if (quizCurrent === 1 && !quizData.guests) {
-    if (!isAuto) alert('Выберите количество гостей')
+    if (!isAuto) quizErrorShow('Выберите, сколько гостей разместим', document.querySelector('[data-step="1"]'))
     return
   }
   if (quizCurrent === 2) {
     const from = document.getElementById('dateFrom').value
     const to = document.getElementById('dateTo').value
-    if (!from || !to) { alert('Укажите даты заезда и выезда'); return }
-    if (quizData.nights <= 0) { alert('Дата выезда должна быть позже заезда'); return }
+    if (!from || !to) { quizErrorShow('Укажите даты заезда и выезда', document.getElementById('dateFrom')); return }
+    if (quizData.nights <= 0) { quizErrorShow('Дата выезда должна быть позже заезда', document.getElementById('dateTo')); return }
   }
   if (quizCurrent === 3 && !quizData.room) {
-    if (!isAuto) alert('Выберите номер')
+    if (!isAuto) quizErrorShow('Выберите номер', document.querySelector('[data-step="3"]'))
     return
   }
 
@@ -1778,7 +2016,31 @@ function quizShowSuccess(payload) {
   }
 }
 
-initQuiz()
+initQuiz();
+
+
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3e0d12b982797ad',t:'MTc4OTkwNzE3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>
+/* Нижняя панель связи: появляется после hero (моб.) */
+(function () {
+  var bar = document.querySelector('.sticky-booking');
+  var hero = document.querySelector('.hero');
+  if (!bar || !hero) return;
+  var mq = window.matchMedia('(max-width: 760px)');
+  var ticking = false;
+  function sync() {
+    ticking = false;
+    if (!mq.matches) { bar.classList.remove('is-hidden'); return; }
+    var limit = hero.offsetHeight - window.innerHeight * 0.25;
+    bar.classList.toggle('is-hidden', window.scrollY < Math.max(limit, 0));
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(sync); }
+  }, { passive: true });
+  window.addEventListener('resize', sync);
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+  sync();
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3ea80799881e856',t:'MTc5MDAwODcyMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
